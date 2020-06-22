@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "156981484049",
+    "firebase_url": "https://enotetestui.firebaseio.com",
+    "project_id": "enotetestui",
+    "storage_bucket": "enotetestui.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156981484049:android:13d5de050315aab24aefb0",
+        "android_client_info": {
+          "package_name": "com.example.ennot_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "156981484049-tc8mprdekfsd3d41ooidubiev7u963vi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ennot_test",
+            "certificate_hash": "489ae916c01754d8813ab7fc50249df1fafc7b68"
+          }
+        },
+        {
+          "client_id": "156981484049-b9stos34fgeu5ddpl46j61naa4vd7l6q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOc545cEEVRZEGutV99rezI3ekHOlZlqo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "156981484049-b9stos34fgeu5ddpl46j61naa4vd7l6q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
