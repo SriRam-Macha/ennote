@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         title: 'Ennote',
         theme: ThemeData(primarySwatch: Colors.blue),
-        home: Wrapper(),
+        home: Wrapper()
       ),
     );
   }
