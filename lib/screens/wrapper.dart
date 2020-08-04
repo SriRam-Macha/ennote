@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ennot_test/screens/Authenticate/Authenticate.dart';
-import 'package:ennot_test/screens/Home/Home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'Authenticate/Authenticate.dart';
+import 'Home/Home.dart';
 import 'Home/userinforeg.dart';
 
 class Wrapper extends StatefulWidget {
@@ -26,7 +26,7 @@ class _WrapperState extends State<Wrapper> {
               .document(user.uid)
               .snapshots(),
           builder: (context, snapshot) {
-            if(!snapshot.hasData){
+            if (!snapshot.hasData) {
               return CircularProgressIndicator();
             }
             DocumentSnapshot userinfo = snapshot.data;
@@ -37,8 +37,6 @@ class _WrapperState extends State<Wrapper> {
             }
           },
         );
-
-        // return Home();
       } else {
         return Authenticate();
       }

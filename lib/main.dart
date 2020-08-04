@@ -1,9 +1,8 @@
-import 'package:ennot_test/screens/Authenticate/Forgetpassword.dart';
-import 'package:ennot_test/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'screens/wrapper.dart';
+import 'services/auth.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,5 +24,4 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
-
 }

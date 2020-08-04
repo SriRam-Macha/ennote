@@ -1,7 +1,8 @@
-import 'package:ennot_test/services/auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:official_Ennote/services/auth.dart';
 
 class SignUp extends StatefulWidget {
   final Function toggleView;

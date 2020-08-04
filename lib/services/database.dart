@@ -9,7 +9,7 @@ class DataBaseService{
   final CollectionReference userCollection = Firestore.instance.collection('Users');
   
 
-  Future updateUserData({String name = 'No User Name', String clearenceLevel = 'Zero', String subPath = 'Not declared'})async{
+  Future updateUserData({String name = '', String clearenceLevel = '', String subPath = ''})async{
     return await userCollection.document(uid).setData({
       'Name' : name,
       'clearance Level' : clearenceLevel,

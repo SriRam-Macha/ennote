@@ -24,7 +24,6 @@ class Storage {
   }
 
   Future<List> getitems(String docpath) async {
-    print("object");
     StorageReference reference = _storage.ref().child(docpath);
     var list = LinkedHashMap<dynamic, dynamic>();
     list = await reference.listAll();
@@ -39,8 +38,6 @@ class Storage {
     folder.entries.forEach((e) {
       foldername.add(NameFolder(e.value["name"], e.value["path"]));
     });
-
-    print([docname,foldername]);
     return [docname,foldername];
   }
 }

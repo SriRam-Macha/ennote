@@ -1,11 +1,8 @@
-import 'dart:io';
-
-import 'package:ennot_test/services/pdfview.dart';
-import 'package:ennot_test/services/storage.dart';
-import 'package:ennot_test/services/web_view.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:official_Ennote/services/pdfview.dart';
+import 'package:official_Ennote/services/storage.dart';
+import 'package:official_Ennote/services/web_view.dart';
 
 class ItemList extends StatefulWidget {
   final String docpath;
@@ -87,6 +84,8 @@ class _ItemListState extends State<ItemList> {
                                       elevation: 15,
                                       child: InkWell(
                                         onTap: () {
+                                          print(folderlist[index]
+                                                          .path);
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(

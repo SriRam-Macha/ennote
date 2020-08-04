@@ -1,8 +1,8 @@
 {
-    "name": "ennot_test",
-    "short_name": "ennot_test",
+    "name": "official_Ennote",
+    "short_name": "official_Ennote",
     "start_url": ".",
-    "display": "minimal-ui",
+    "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
     "description": "A new Flutter project.",

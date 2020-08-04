@@ -1,8 +1,9 @@
-import 'package:ennot_test/services/storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
+import 'storage.dart';
 
 class Webpage extends StatefulWidget {
   final dynamic url;
@@ -10,6 +11,7 @@ class Webpage extends StatefulWidget {
   @override
   _WebpageState createState() => _WebpageState();
 }
+
 
 class _WebpageState extends State<Webpage> {
   WebViewController controller;
@@ -34,7 +36,7 @@ class _WebpageState extends State<Webpage> {
     return SafeArea(
       child: Scaffold(
         body: FutureBuilder(future: webview.then((value) {
-          url = Uri.encodeFull("$value");
+          url = Uri.encodeComponent("$value");
           print(url);
         }), builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {

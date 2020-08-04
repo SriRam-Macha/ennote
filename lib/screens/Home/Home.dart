@@ -1,7 +1,9 @@
-import 'package:ennot_test/services/auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:official_Ennote/services/auth.dart';
 import 'package:provider/provider.dart';
+import 'Listpage.dart';
 import 'sem_page.dart';
 
 class Home extends StatefulWidget {
@@ -42,7 +44,7 @@ class _HomeState extends State<Home> {
                 RaisedButton(
                   child: Text("Press the grey button below"),
                   onPressed: () {
-                    if("".isNotEmpty){
+                    if ("".isNotEmpty) {
                       print("empty");
                     }
                   },
@@ -54,9 +56,18 @@ class _HomeState extends State<Home> {
                 }),
                 RaisedButton(
                   onPressed: () async {
-                    await _auth.resetPassword('mssr001@gmail.com', _globalKey);
+                    var branch = await Firestore.instance
+                        .collection("Users")
+                        .document(user.uid)
+                        .get();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ItemList(branch.data["Current Sub Path"]),),);
                   },
                   color: Colors.blue,
+                  child: Text("Your Subjects shortcut"),
                 ),
                 RaisedButton(onPressed: () async {
                   UserUpdateInfo userUpdateInfo = new UserUpdateInfo();
