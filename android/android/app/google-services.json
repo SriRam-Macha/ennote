@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "153637140186",
+    "firebase_url": "https://ennote-v2-be4af.firebaseio.com",
+    "project_id": "ennote-v2-be4af",
+    "storage_bucket": "ennote-v2-be4af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153637140186:android:11cc8dce453776e76ad7e3",
+        "android_client_info": {
+          "package_name": "com.example.official_Ennote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "153637140186-n9d9r5gu5b2tia5r2m4j46o204l0ea14.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.official_Ennote",
+            "certificate_hash": "40f0fcee58215c8ae777fd9882733092df35c004"
+          }
+        },
+        {
+          "client_id": "153637140186-a6juf70ql23qholpol3h9t9pjim18sv0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.official_Ennote",
+            "certificate_hash": "489ae916c01754d8813ab7fc50249df1fafc7b68"
+          }
+        },
+        {
+          "client_id": "153637140186-n68k7hrdf48rja6dti0prg1se7krkh2u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVbaqzTlTgJYGeWLSXK_9Q-hg1MWu9VKo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "153637140186-n68k7hrdf48rja6dti0prg1se7krkh2u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
