@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 import 'Authenticate/Authenticate.dart';
 import 'Home/Home.dart';
-import 'Home/userinforeg.dart';
 
 class Wrapper extends StatefulWidget {
   @override
@@ -20,26 +19,27 @@ class _WrapperState extends State<Wrapper> {
       return Authenticate();
     } else {
       if (user.isEmailVerified) {
-        return StreamBuilder(
-          stream: Firestore.instance
-              .collection('Users')
-              .document(user.uid)
-              .snapshots(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return CircularProgressIndicator();
-            }
-            DocumentSnapshot userinfo = snapshot.data;
-            if (userinfo["Current Sub Path"].toString().isEmpty) {
-              return Inforeg();
-            } else {
-              return Home();
-            }
-          },
-        );
+        return StreamProvider<DocumentSnapshot>.value(
+            value: Firestore.instance
+                .collection("Users")
+                .document(user.uid)
+                .snapshots(),
+            child: WrapperHome());
       } else {
         return Authenticate();
       }
     }
+  }
+}
+
+class WrapperHome extends StatefulWidget {
+  @override
+  _WrapperHomeState createState() => _WrapperHomeState();
+}
+
+class _WrapperHomeState extends State<WrapperHome> {
+  @override
+  Widget build(BuildContext context) {
+    return Home();
   }
 }

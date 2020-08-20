@@ -138,22 +138,14 @@ class _ItemListState extends State<ItemList> {
                                       if ((doclist[index].path)
                                           .toString()
                                           .endsWith('pdf')) {
-                                        // String url =
-                                        //     await _storage.getdownloadurl(
-                                        //         doclist[index].path);
-                                        // var request = await HttpClient()
-                                        //     .getUrl(Uri.parse(url));
-                                        // var response = await request.close();
-                                        // var bytes =
-                                        //     await consolidateHttpClientResponseBytes(
-                                        //         response);
+                                      
 
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => PDFView(
-                                                    path:
-                                                        doclist[index].path)));
+                                        // Navigator.push(
+                                        //     context,
+                                        //     MaterialPageRoute(
+                                        //         builder: (context) => PDFView(
+                                        //             path:
+                                        //                 doclist[index].path)));
                                       } else {
                                         Navigator.push(
                                             context,

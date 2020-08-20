@@ -13,7 +13,8 @@ class DataBaseService{
     return await userCollection.document(uid).setData({
       'Name' : name,
       'clearance Level' : clearenceLevel,
-      'Current Sub Path': subPath
+      'Current Sub Path': subPath,
+      'UpvotedDoc': []
     });
   }
 }

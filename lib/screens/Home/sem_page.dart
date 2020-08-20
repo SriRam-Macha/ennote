@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'Listpage.dart';
+import 'Listupvote.dart';
 
 class Semisters extends StatefulWidget {
   @override
@@ -40,8 +41,15 @@ class _SemistersState extends State<Semisters> {
                           borderRadius: BorderRadius.circular(18)),
                       elevation: 15,
                       child: InkWell(
-                        onTap: (){Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ItemList(semister[index].semPath)));},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ListSort(semister[index].semPath),
+                            ),
+                          );
+                        },
                         child: Padding(
                           padding: EdgeInsets.all(16.0),
                           child: Container(

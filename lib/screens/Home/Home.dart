@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:official_Ennote/services/auth.dart';
 import 'package:provider/provider.dart';
 import 'Listpage.dart';
+import 'Listupvote.dart';
 import 'sem_page.dart';
 
 class Home extends StatefulWidget {
@@ -17,6 +18,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<FirebaseUser>(context);
+    final shortcut = Provider.of<DocumentSnapshot>(context);
     return Scaffold(
         key: _globalKey,
         appBar: AppBar(
@@ -43,11 +45,7 @@ class _HomeState extends State<Home> {
                 ),
                 RaisedButton(
                   child: Text("Press the grey button below"),
-                  onPressed: () {
-                    if ("".isNotEmpty) {
-                      print("empty");
-                    }
-                  },
+                  onPressed: () async {},
                   color: Colors.green,
                 ),
                 RaisedButton(onPressed: () {
@@ -55,16 +53,19 @@ class _HomeState extends State<Home> {
                       MaterialPageRoute(builder: (context) => Semisters()));
                 }),
                 RaisedButton(
-                  onPressed: () async {
-                    var branch = await Firestore.instance
-                        .collection("Users")
-                        .document(user.uid)
-                        .get();
-                    Navigator.push(
+                  onPressed: () {
+                    if (shortcut["Current Sub Path"].toString().isNotEmpty) {
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                ItemList(branch.data["Current Sub Path"]),),);
+                          builder: (context) =>
+                              ListSort(shortcut["Current Sub Path"]),
+                        ),
+                      );
+                    } else {
+                      _globalKey.currentState.showSnackBar(SnackBar(
+                          content: Text("There are no Shortcuts added")));
+                    }
                   },
                   color: Colors.blue,
                   child: Text("Your Subjects shortcut"),
