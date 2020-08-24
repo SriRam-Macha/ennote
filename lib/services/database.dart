@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DataBaseService{
@@ -13,7 +12,8 @@ class DataBaseService{
     return await userCollection.document(uid).setData({
       'Name' : name,
       'clearance Level' : clearenceLevel,
-      'Current Sub Path': subPath
+      'Current Sub Path': subPath,
+      'UpvotedDoc': []
     });
   }
 }

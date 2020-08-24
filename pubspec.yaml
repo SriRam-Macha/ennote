@@ -37,6 +37,14 @@ dependencies:
   cloud_firestore: ^0.13.6
   firebase: ^7.3.0
   firebase_database: ^3.1.6
+  animate_do: ^1.7.2
+  flutter_speed_dial: ^1.2.5
+  file_picker: ^1.13.0+1
+  animated_theme_switcher: ^1.0.5
+  line_awesome_flutter: ^1.0.1
+  flutter_screenutil: ^1.0.2
+  shared_preferences: ^0.5.7+3
+  
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -60,6 +68,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   # assets:
+  assets:  
+    - assets/images/avatar.png
+    - assets/images/dpp.jpg
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

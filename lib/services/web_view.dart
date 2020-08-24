@@ -12,7 +12,6 @@ class Webpage extends StatefulWidget {
   _WebpageState createState() => _WebpageState();
 }
 
-
 class _WebpageState extends State<Webpage> {
   WebViewController controller;
   final Storage _storage = Storage();
