@@ -67,112 +67,115 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
               Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 30.0),
-                      child: TextFormField(
-                        style: TextStyle(color: Colors.black),
-                        validator: (input) {
-                          if (input.isEmpty) {
-                            return 'Please enter a valid SRM  E-mail';
-                          }
-                          return null;
-                        },
-                        onSaved: (input) => _email = input.trim(),
-                        decoration: InputDecoration(
-                            labelText: 'Email',
-                            labelStyle: TextStyle(color: Colors.black),
-                            suffixIcon: Tooltip(
-                                message: 'Only SRM mail id\'s are allowed',
-                                child: Icon(Icons.help_outline))),
-                      ),
-                    ),
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
-                      child: TextFormField(
-                        style: TextStyle(color: Colors.black),
-                        maxLines: 1,
-                        validator: (input) {
-                          if (input.length < 6) {
-                            return 'Please provide a vaild password';
-                          }
-                          return null;
-                        },
-                        onSaved: (input) => _password = input,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                            hintText: "Enter your password",
-                            hintStyle: TextStyle(color: Colors.black),
-                            labelText: "Password",
-                            labelStyle: TextStyle(color: Colors.black),
-                            suffixIcon: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  _showPassword = !_showPassword;
-                                });
-                              },
-                              child: Icon(_showPassword
-                                  ? Icons.visibility
-                                  : Icons.visibility_off),
-                            )),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30.0,
-                    ),
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
-                      width: double.infinity,
-                      child: RaisedButton(
-                        padding: EdgeInsets.all(12.0),
-                        shape: StadiumBorder(),
-                        child: Text(
-                          "SIGN IN",
-                          style: TextStyle(color: Colors.white),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 16.0, horizontal: 30.0),
+                        child: TextFormField(
+                          style: TextStyle(color: Colors.black),
+                          validator: (input) {
+                            if (input.isEmpty) {
+                              return 'Please enter a valid SRM  E-mail';
+                            }
+                            return null;
+                          },
+                          onSaved: (input) => _email = input.trim(),
+                          decoration: InputDecoration(
+                              labelText: 'Email',
+                              labelStyle: TextStyle(color: Colors.black),
+                              suffixIcon: Tooltip(
+                                  message: 'Only SRM mail id\'s are allowed',
+                                  child: Icon(Icons.help_outline))),
                         ),
-                        color: Colors.green,
-                        onPressed: () {
-                          if (_formKey.currentState.validate()) {
-                            _formKey.currentState.save();
-                            _auth.signInwithEmailandPassword(
-                                _email, _password, _scafoldkey);
-                          }
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 0.0, horizontal: 30.0),
+                        child: TextFormField(
+                          style: TextStyle(color: Colors.black),
+                          maxLines: 1,
+                          validator: (input) {
+                            if (input.length < 6) {
+                              return 'Please provide a vaild password';
+                            }
+                            return null;
+                          },
+                          onSaved: (input) => _password = input,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                              hintText: "Enter your password",
+                              hintStyle: TextStyle(color: Colors.black),
+                              labelText: "Password",
+                              labelStyle: TextStyle(color: Colors.black),
+                              suffixIcon: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    _showPassword = !_showPassword;
+                                  });
+                                },
+                                child: Icon(_showPassword
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                              )),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 0.0, horizontal: 30.0),
+                        width: double.infinity,
+                        child: RaisedButton(
+                          padding: EdgeInsets.all(12.0),
+                          shape: StadiumBorder(),
+                          child: Text(
+                            "SIGN IN",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          color: Colors.green,
+                          onPressed: () {
+                            if (_formKey.currentState.validate()) {
+                              _formKey.currentState.save();
+                              _auth.signInwithEmailandPassword(
+                                  _email, _password, _scafoldkey);
+                            }
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      InkWell(
+                        child: Text(
+                          "SIGN UP FOR AN ACCOUNT",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        onTap: () {
+                          widget.toggleView();
                         },
                       ),
-                    ),
-                    SizedBox(
-                      height: 5.0,
-                    ),
-                    InkWell(
-                      child: Text(
-                        "SIGN UP FOR AN ACCOUNT",
-                        style: TextStyle(color: Colors.grey),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 0.0, horizontal: 30.0),
                       ),
-                      onTap: () {
-                        widget.toggleView();
-                      },
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PasswordReset()));
-                      },
-                      child: Text("Forgot Password",
-                          style: TextStyle(fontSize: 20, color: Colors.blue)),
-                    )
-                  ],
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PasswordReset()));
+                        },
+                        child: Text("Forgot Password",
+                            style: TextStyle(fontSize: 20, color: Colors.blue)),
+                      )
+                    ],
+                  ),
                 ),
               )
             ],
