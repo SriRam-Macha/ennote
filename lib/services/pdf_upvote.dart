@@ -27,6 +27,7 @@ class _PDFViewState extends State<PDFView> {
   Uint8List bytes;
   double val = 1;
   double maximumval = 1;
+  double cumulativedata = 0;
 
   @override
   void initState() {
@@ -44,7 +45,14 @@ class _PDFViewState extends State<PDFView> {
     String url = path;
     var request = await HttpClient().getUrl(Uri.parse(url));
     var response = await request.close();
-    var bytes = await consolidateHttpClientResponseBytes(response);
+    var bytes = await consolidateHttpClientResponseBytes(
+      response,
+      onBytesReceived: (cumulative, total) {
+        setState(() {
+          cumulativedata = cumulative / total;
+        });
+      },
+    );
     return bytes;
   }
 
@@ -124,7 +132,8 @@ class _PDFViewState extends State<PDFView> {
                                       .child(widget.path + '/' + widget.dockey);
                                   dataRef.runTransaction(
                                       (MutableData transaction) async {
-                                    print(transaction.value.toString() + "hello");
+                                    print(
+                                        transaction.value.toString() + "hello");
                                     transaction.value['votes'] =
                                         (transaction.value['votes'] ?? 0) + 1;
                                     return transaction;
@@ -136,7 +145,7 @@ class _PDFViewState extends State<PDFView> {
                             children: [
                               IconButton(
                                 icon: Icon(MdiIcons.thumbUpOutline),
-                                onPressed: ()  {
+                                onPressed: () {
                                   Firestore.instance
                                       .collection("Users")
                                       .document(user.uid)
@@ -150,7 +159,8 @@ class _PDFViewState extends State<PDFView> {
                                       .child(widget.path + '/' + widget.dockey);
                                   dataRef.runTransaction(
                                       (MutableData transaction) async {
-                                    print(transaction.value.toString() + "hello");
+                                    print(
+                                        transaction.value.toString() + "hello");
                                     transaction.value['votes'] =
                                         (transaction.value['votes'] ?? 0) - 1;
                                     return transaction;
@@ -222,7 +232,26 @@ class _PDFViewState extends State<PDFView> {
                   );
                 } else {
                   return Center(
-                    child: CircularProgressIndicator(),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                                (cumulativedata * 100).toInt().toString() +
+                                    " %"),
+                          ),
+                          Expanded(
+                            child: LinearProgressIndicator(
+                              minHeight: 6.0,
+                              value: cumulativedata,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   );
                 }
               },

@@ -21,6 +21,13 @@ class _LoginPageState extends State<LoginPage> {
 
   final Auth _auth = Auth();
 
+  _signin() {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      _auth.signInwithEmailandPassword(_email, _password, _scafoldkey);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -97,6 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                         padding: EdgeInsets.symmetric(
                             vertical: 0.0, horizontal: 30.0),
                         child: TextFormField(
+                          onFieldSubmitted: (value) => _signin(),
                           style: TextStyle(color: Colors.black),
                           maxLines: 1,
                           validator: (input) {
