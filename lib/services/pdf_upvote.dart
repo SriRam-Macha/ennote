@@ -183,6 +183,7 @@ class _PDFViewState extends State<PDFView> {
       body: Column(
         children: [
           Slider(
+            label: val.toInt().toString(),
             value: val,
             divisions:
                 (maximumval.toInt() - 1) == 0 ? null : maximumval.toInt() - 1,

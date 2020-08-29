@@ -16,7 +16,7 @@ class AddDocument extends StatefulWidget {
 class _AddDocumentState extends State<AddDocument> {
   StorageUploadTask _uploadTask;
   double val = 0;
-  String _url;
+  String _url = "Empty";
   String _doc_name = '';
   String _uploder_name = 'Anonymous';
   bool loading = false;
@@ -78,7 +78,7 @@ class _AddDocumentState extends State<AddDocument> {
 
               if (_url.isNotEmpty) {
                 DatabaseReference databaseReference =
-                    FirebaseDatabase.instance.reference().child("Moderater"); 
+                    FirebaseDatabase.instance.reference().child("Moderater");
 
                 databaseReference.push().set({
                   'name': _doc_name,
@@ -129,9 +129,18 @@ class _AddDocumentState extends State<AddDocument> {
               decoration: InputDecoration(labelText: "Document Name"),
             ),
             TextFormField(
+              onSaved: (newValue) {
+                if (newValue.trim().isEmpty) {
+                  _uploder_name = 'Anonymous';
+                } else {
+                  _uploder_name = newValue.trim();
+                }
+              },
               validator: (value) {
-                if (value.length < 3 && value.isNotEmpty) {
-                  return 'Should be empty or more than 3 charecters';
+                if (value.trim().isNotEmpty) {
+                  if (value.trim().length < 3) {
+                    return 'Should be empty or more than 3 charecters';
+                  }
                 }
                 return null;
               },
