@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:official_Ennote/services/auth.dart';
 
@@ -39,15 +40,13 @@ class _PasswordResetState extends State<PasswordReset> {
                             "Pls Enter Your Registered E-mail",
                             style: TextStyle(
                               fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
+                              fontWeight: FontWeight.w600 
                             ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: TextFormField(
-                            style: TextStyle(color: Colors.black),
                             validator: (input) {
                               if (input.isEmpty ||
                                   !input.endsWith('@srmap.edu.in')) {
@@ -55,13 +54,9 @@ class _PasswordResetState extends State<PasswordReset> {
                               }
                               return null;
                             },
-                            
-                            onSaved: (input) {
-                              return _email = input.trim();
-                            },
+                            onSaved: (input) => _email = input.trim(),
                             decoration: InputDecoration(
                                 labelText: 'Email',
-                                labelStyle: TextStyle(color: Colors.black),
                                 suffixIcon: Tooltip(
                                     message: 'Only SRM mail id\'s are allowed',
                                     child: Icon(Icons.help_outline))),

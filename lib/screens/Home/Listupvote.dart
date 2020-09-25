@@ -95,27 +95,23 @@ class _ListSortState extends State<ListSort> {
                   },
                 ),
                 SpeedDialChild(
-                  onTap: () async {
-                    print(widget.path);
-                    var shortcut = await Firestore.instance
-                        .collection("Users")
-                        .document(user.uid)
-                        .updateData({'Current Sub Path': widget.path});
-                  },
-                  child: Icon(Icons.short_text),
-                  label: "Set as Shortcut path",
-                  labelStyle: TextStyle(color: Colors.white),
-                  labelBackgroundColor: Theme.of(context).accentColor,
-                ),
+                    onTap: () async {
+                      print(widget.path);
+                      var shortcut = await Firestore.instance
+                          .collection("Users")
+                          .document(user.uid)
+                          .updateData({'Current Sub Path': widget.path});
+                    },
+                    child: Icon(Icons.short_text),
+                    label: "Set as Shortcut path",
+                    labelStyle: TextStyle(color: Colors.white),
+                    labelBackgroundColor: Theme.of(context).accentColor,),
               ],
             ),
             body: SafeArea(
               child: Stack(
                 children: [
                   FirebaseAnimatedList(
-                    defaultChild: Center(
-                      child: CircularProgressIndicator(),
-                    ),
                     duration: Duration(milliseconds: 500),
                     query: FirebaseDatabase.instance
                         .reference()

@@ -43,7 +43,6 @@ dependencies:
   animated_theme_switcher: ^1.0.5
   line_awesome_flutter: ^1.0.1
   flutter_screenutil: ^1.0.2
-  connectivity: ^0.4.9+2
   shared_preferences: ^0.5.7+3
   
 

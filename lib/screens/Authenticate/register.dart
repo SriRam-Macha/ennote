@@ -66,133 +66,130 @@ class _SignUpState extends State<SignUp> {
                 ],
               ),
               Container(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 30.0),
-                        child: TextFormField(
-                          style: TextStyle(color: Colors.black),
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (input) {
-                            if (input.isEmpty ||
-                                !input.endsWith('@srmap.edu.in')) {
-                              return 'Please enter a valid SRM  E-mail';
-                            } else {
-                              return null;
-                            }
-                          },
-                          onSaved: (input) => _email = input.trim(),
-                          decoration: InputDecoration(
-                              labelText: 'Email',
-                              labelStyle: TextStyle(color: Colors.black),
-                              suffixIcon: Tooltip(
-                                  message: 'Only SRM mail id\'s are allowed',
-                                  child: Icon(Icons.help_outline))),
-                        ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 30.0),
+                      child: TextFormField(
+                        style: TextStyle(color: Colors.black),
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (input) {
+                          if (input.isEmpty ||
+                              !input.endsWith('@srmap.edu.in')) {
+                            return 'Please enter a valid SRM  E-mail';
+                          } else {
+                            return null;
+                          }
+                        },
+                        onSaved: (input) => _email = input.trim(),
+                        decoration: InputDecoration(
+                            labelText: 'Email',
+                            labelStyle: TextStyle(color: Colors.black),
+                            suffixIcon: Tooltip(
+                                message: 'Only SRM mail id\'s are allowed',
+                                child: Icon(Icons.help_outline))),
                       ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 0.0, horizontal: 30.0),
-                        child: TextFormField(
-                          style: TextStyle(color: Colors.black),
-                          controller: _pass,
-                          validator: (val) {
-                            if (val.length < 6) {
-                              return 'Please provide a vaild password';
-                            } else {
-                              return null;
-                            }
-                          },
-                          onSaved: (val) => _password = val,
-                          decoration: InputDecoration(
-                              labelText: 'Password',
-                              labelStyle: TextStyle(color: Colors.black),
-                              suffixIcon: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    _showPassword = !_showPassword;
-                                  });
-                                },
-                                child: Icon(_showPassword
-                                    ? Icons.visibility
-                                    : Icons.visibility_off),
-                              )),
-                          obscureText: !_showPassword,
-                        ),
+                    ),
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
+                      child: TextFormField(
+                        style: TextStyle(color: Colors.black),
+                        controller: _pass,
+                        validator: (val) {
+                          if (val.length < 6) {
+                            return 'Please provide a vaild password';
+                          } else {
+                            return null;
+                          }
+                        },
+                        onSaved: (val) => _password = val,
+                        decoration: InputDecoration(
+                            labelText: 'Password',
+                            labelStyle: TextStyle(color: Colors.black),
+                            suffixIcon: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  _showPassword = !_showPassword;
+                                });
+                              },
+                              child: Icon(_showPassword
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                            )),
+                        obscureText: !_showPassword,
                       ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 0.0, horizontal: 30.0),
-                        child: TextFormField(
-                          style: TextStyle(color: Colors.black),
-                          controller: _confirmpass,
-                          validator: (inpute) {
-                            if (inpute != _pass.text) {
-                              return 'Please provide a vaild password';
-                            } else {
-                              return null;
-                            }
-                          },
-                          onSaved: (inpute) => _passwordConfirm = inpute,
-                          decoration: InputDecoration(
-                              labelText: 'Confirm Password',
-                              labelStyle: TextStyle(color: Colors.black),
-                              suffixIcon: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    _showPassword = !_showPassword;
-                                  });
-                                },
-                                child: Icon(_showPassword
-                                    ? Icons.visibility
-                                    : Icons.visibility_off),
-                              )),
-                          obscureText: !_showPassword,
-                        ),
+                    ),
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
+                      child: TextFormField(
+                        style: TextStyle(color: Colors.black),
+                        controller: _confirmpass,
+                        validator: (inpute) {
+                          if (inpute != _pass.text) {
+                            return 'Please provide a vaild password';
+                          } else {
+                            return null;
+                          }
+                        },
+                        onSaved: (inpute) => _passwordConfirm = inpute,
+                        decoration: InputDecoration(
+                            labelText: 'Confirm Password',
+                            labelStyle: TextStyle(color: Colors.black),
+                            suffixIcon: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  _showPassword = !_showPassword;
+                                });
+                              },
+                              child: Icon(_showPassword
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                            )),
+                        obscureText: !_showPassword,
                       ),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 0.0, horizontal: 30.0),
-                        width: double.infinity,
-                        child: RaisedButton(
-                          padding: EdgeInsets.all(12.0),
-                          shape: StadiumBorder(),
-                          child: Text(
-                            "SIGN UP",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          color: Colors.green,
-                          onPressed: () async {
-                            if (_formKey.currentState.validate()) {
-                              _formKey.currentState.save();
-                              _auth.registerwithEmailandPassword(
-                                  _email, _passwordConfirm, _scaffold);
-                            }
-                          },
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      InkWell(
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
+                      width: double.infinity,
+                      child: RaisedButton(
+                        padding: EdgeInsets.all(12.0),
+                        shape: StadiumBorder(),
                         child: Text(
-                          "SIGN UP FOR AN ACCOUNT",
-                          style: TextStyle(color: Colors.grey),
+                          "SIGN UP",
+                          style: TextStyle(color: Colors.white),
                         ),
-                        onTap: () {
-                          widget.toggleView();
+                        color: Colors.green,
+                        onPressed: () async {
+                          if (_formKey.currentState.validate()) {
+                            _formKey.currentState.save();
+                            _auth.registerwithEmailandPassword(
+                                _email, _passwordConfirm, _scaffold);
+                          }
                         },
                       ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    InkWell(
+                      child: Text(
+                        "SIGN UP FOR AN ACCOUNT",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      onTap: () {
+                        widget.toggleView();
+                      },
+                    ),
+                  ],
                 ),
               )
             ],
