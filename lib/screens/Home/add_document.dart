@@ -150,7 +150,7 @@ class _AddDocumentState extends State<AddDocument> {
                         ),
                         Expanded(
                           child: LinearProgressIndicator(
-                            value: val.roundToDouble(),
+                            value: val.roundToDouble(), 
                           ),
                         ),
                       ],
