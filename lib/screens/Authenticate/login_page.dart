@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:official_Ennote/services/auth.dart';
+import '../../uidata.dart';
 
 import 'Forgetpassword.dart';
 
@@ -35,128 +35,132 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     return Scaffold(
-        key: _scafoldkey,
-        backgroundColor: Color(0xffBBDEFA),
-        body: SafeArea(
-          child: Stack(
-            alignment: Alignment.center,
+      key: _scafoldkey,
+      backgroundColor: Colors.white,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: ClipPath(
-                    clipper: new MyClipper(),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      color: Colors.white,
-                      child: Container(
-                        height: height / 2,
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            children: <Widget>[
-                              SizedBox(height: height / 4),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 0.0, 8.0, 8.0),
-                                child: TextFormField(
-                                  validator: (input) {
-                                    if (input.isEmpty) {
-                                      return 'Please enter a valid SRM  E-mail';
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (input) => _email = input.trim(),
-                                  decoration: InputDecoration(
-                                      labelText: 'Email',
-                                      suffixIcon: Tooltip(
-                                          message:
-                                              'Only SRM mail id\'s are allowed',
-                                          child: Icon(Icons.help_outline))),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    8.0, 8.0, 8.0, 0.0),
-                                child: TextFormField(
-                                  validator: (input) {
-                                    if (input.length < 6) {
-                                      return 'Please provide a vaild password';
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (input) => _password = input,
-                                  decoration: InputDecoration(
-                                      labelText: 'Password',
-                                      suffixIcon: InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            _showPassword = !_showPassword;
-                                          });
-                                        },
-                                        child: Icon(_showPassword
-                                            ? Icons.visibility
-                                            : Icons.visibility_off),
-                                      )),
-                                  obscureText: !_showPassword,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  FlutterLogo(
+                    colors: Colors.green,
+                    size: 80.0,
+                  ),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  Text(
+                    "Welcome to ${UIData.appName}",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700, color: Colors.green),
+                  ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  Text(
+                    "Sign in to continue",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ],
+              ),
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 30.0),
+                      child: TextFormField(
+                        style: TextStyle(color: Colors.black),
+                        validator: (input) {
+                          if (input.isEmpty) {
+                            return 'Please enter a valid SRM  E-mail';
+                          }
+                          return null;
+                        },
+                        onSaved: (input) => _email = input.trim(),
+                        decoration: InputDecoration(
+                            labelText: 'Email',
+                            labelStyle: TextStyle(color: Colors.black),
+                            suffixIcon: Tooltip(
+                                message: 'Only SRM mail id\'s are allowed',
+                                child: Icon(Icons.help_outline))),
                       ),
                     ),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: height * 0.703 - posheight / 2,
-                left: width / 2 - 50,
-                child: ButtonTheme(
-                    minWidth: 100,
-                    height: 30,
-                    child: RaisedButton(
-                      onPressed: () {
-                        if (_formKey.currentState.validate()) {
-                          _formKey.currentState.save();
-                          _auth.signInwithEmailandPassword(
-                              _email, _password, _scafoldkey);
-                        }
-                      },
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0)),
-                      child: Text(
-                        "Log In",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    )),
-              ),
-              Positioned(
-                top: height / 20 * 5.75 - posheight / 2,
-                left: width / 2 - 50,
-                child: CircleAvatar(
-                  child: Icon(
-                    MdiIcons.account,
-                    color: Colors.amberAccent,
-                  ),
-                  radius: 40.0,
-                ),
-              ),
-              Positioned(
-                top: height * 16 / 20 - posheight / 2,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(9.0),
-                      child: InkWell(
-                        onTap: () {
-                          widget.toggleView();
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
+                      child: TextFormField(
+                        style: TextStyle(color: Colors.black),
+                        maxLines: 1,
+                        validator: (input) {
+                          if (input.length < 6) {
+                            return 'Please provide a vaild password';
+                          }
+                          return null;
                         },
-                        child: Text("Sign Up",
-                            style: TextStyle(fontSize: 20, color: Colors.blue)),
+                        onSaved: (input) => _password = input,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                            hintText: "Enter your password",
+                            hintStyle: TextStyle(color: Colors.black),
+                            labelText: "Password",
+                            labelStyle: TextStyle(color: Colors.black),
+                            suffixIcon: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  _showPassword = !_showPassword;
+                                });
+                              },
+                              child: Icon(_showPassword
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                            )),
                       ),
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
+                      width: double.infinity,
+                      child: RaisedButton(
+                        padding: EdgeInsets.all(12.0),
+                        shape: StadiumBorder(),
+                        child: Text(
+                          "SIGN IN",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        color: Colors.green,
+                        onPressed: () {
+                          if (_formKey.currentState.validate()) {
+                            _formKey.currentState.save();
+                            _auth.signInwithEmailandPassword(
+                                _email, _password, _scafoldkey);
+                          }
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    InkWell(
+                      child: Text(
+                        "SIGN UP FOR AN ACCOUNT",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      onTap: () {
+                        widget.toggleView();
+                      },
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
                     ),
                     InkWell(
                       onTap: () {
@@ -173,7 +177,9 @@ class _LoginPageState extends State<LoginPage> {
               )
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 

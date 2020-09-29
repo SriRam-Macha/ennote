@@ -27,6 +27,8 @@ class _PDFViewState extends State<PDFView> {
   Uint8List bytes;
   double val = 1;
   double maximumval = 1;
+  double cumulativedata = 0;
+  bool largefile = false;
 
   @override
   void initState() {
@@ -44,7 +46,19 @@ class _PDFViewState extends State<PDFView> {
     String url = path;
     var request = await HttpClient().getUrl(Uri.parse(url));
     var response = await request.close();
-    var bytes = await consolidateHttpClientResponseBytes(response);
+    var bytes = await consolidateHttpClientResponseBytes(
+      response,
+      onBytesReceived: (cumulative, total) {
+        if (total > 2000000) {
+          setState(() {
+            largefile = true;
+          });
+        }
+        setState(() {
+          cumulativedata = cumulative / total;
+        });
+      },
+    );
     return bytes;
   }
 
@@ -102,63 +116,56 @@ class _PDFViewState extends State<PDFView> {
                         return CircularProgressIndicator();
                       } else {
                         if (snapshot.data["UpvotedDoc"].contains(widget.url)) {
-                          return InkWell(
-                              onTap: () {
-                                print("Button Clicked");
-                                Navigator.of(context).pop();
-                              },
-                              child: IconButton(
-                                color: Colors.red,
-                                icon: Icon(MdiIcons.thumbUp),
-                                onPressed: () {
-                                  Firestore.instance
-                                      .collection("Users")
-                                      .document(user.uid)
-                                      .updateData({
-                                    "UpvotedDoc":
-                                        FieldValue.arrayRemove([widget.url])
-                                  });
+                          return IconButton(
+                            color: Colors.red,
+                            icon: Icon(MdiIcons.thumbUp),
+                            onPressed: () {
+                              Firestore.instance
+                                  .collection("Users")
+                                  .document(user.uid)
+                                  .updateData({
+                                "UpvotedDoc":
+                                    FieldValue.arrayRemove([widget.url])
+                              });
 
-                                  final dataRef = FirebaseDatabase.instance
-                                      .reference()
-                                      .child(widget.path + '/' + widget.dockey);
-                                  dataRef.runTransaction(
-                                      (MutableData transaction) async {
-                                    print(transaction.value.toString() + "hello");
-                                    transaction.value['votes'] =
-                                        (transaction.value['votes'] ?? 0) + 1;
-                                    return transaction;
-                                  });
-                                },
-                              ));
+                              final dataRef = FirebaseDatabase.instance
+                                  .reference()
+                                  .child(widget.path + '/' + widget.dockey);
+                              dataRef.runTransaction(
+                                  (MutableData transaction) async {
+                                print(transaction.value.toString() + "hello");
+                                transaction.value['votes'] =
+                                    (transaction.value['votes'] ?? 0) + 1;
+                                return transaction;
+                              });
+                              Navigator.pop(context);
+                            },
+                          );
                         } else {
-                          return Row(
-                            children: [
-                              IconButton(
-                                icon: Icon(MdiIcons.thumbUpOutline),
-                                onPressed: ()  {
-                                  Firestore.instance
-                                      .collection("Users")
-                                      .document(user.uid)
-                                      .updateData({
-                                    "UpvotedDoc":
-                                        FieldValue.arrayUnion([widget.url])
-                                  });
+                          return IconButton(
+                            icon: Icon(MdiIcons.thumbUpOutline),
+                            onPressed: () {
+                              Firestore.instance
+                                  .collection("Users")
+                                  .document(user.uid)
+                                  .updateData({
+                                "UpvotedDoc":
+                                    FieldValue.arrayUnion([widget.url])
+                              });
 
-                                  final dataRef = FirebaseDatabase.instance
-                                      .reference()
-                                      .child(widget.path + '/' + widget.dockey);
-                                  dataRef.runTransaction(
-                                      (MutableData transaction) async {
-                                    print(transaction.value.toString() + "hello");
-                                    transaction.value['votes'] =
-                                        (transaction.value['votes'] ?? 0) - 1;
-                                    return transaction;
-                                  });
-                                },
-                                color: Colors.black,
-                              )
-                            ],
+                              final dataRef = FirebaseDatabase.instance
+                                  .reference()
+                                  .child(widget.path + '/' + widget.dockey);
+                              dataRef.runTransaction(
+                                  (MutableData transaction) async {
+                                print(transaction.value.toString() + "hello");
+                                transaction.value['votes'] =
+                                    (transaction.value['votes'] ?? 0) - 1;
+                                return transaction;
+                              });
+                              Navigator.pop(context);
+                            },
+                            color: Colors.black,
                           );
                         }
                       }
@@ -172,22 +179,6 @@ class _PDFViewState extends State<PDFView> {
       ),
       body: Column(
         children: [
-          Slider(
-            value: val,
-            divisions:
-                (maximumval.toInt() - 1) == 0 ? null : maximumval.toInt() - 1,
-            onChanged: (value) {
-              setState(
-                () {
-                  val = value;
-                  _pdfController.animateToPage(value.toInt(),
-                      duration: Duration(milliseconds: 75), curve: Curves.ease);
-                },
-              );
-            },
-            min: 1,
-            max: maximumval,
-          ),
           Expanded(
             flex: 25,
             child: FutureBuilder(
@@ -222,11 +213,58 @@ class _PDFViewState extends State<PDFView> {
                   );
                 } else {
                   return Center(
-                    child: CircularProgressIndicator(),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          largefile
+                              ? Text(
+                                  "This is a large Document please wait while \nthe document loads....",
+                                  textAlign: TextAlign.center,
+                                )
+                              : Text("Loading...."),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                    (cumulativedata * 100).toInt().toString() +
+                                        " %"),
+                              ),
+                              Expanded(
+                                child: LinearProgressIndicator(
+                                  minHeight: 6.0,
+                                  value: cumulativedata,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   );
                 }
               },
             ),
+          ),
+          Slider(
+            label: val.toInt().toString(),
+            value: val,
+            divisions:
+                (maximumval.toInt() - 1) == 0 ? null : maximumval.toInt() - 1,
+            onChanged: (value) {
+              setState(
+                () {
+                  val = value;
+                  _pdfController.animateToPage(value.toInt(),
+                      duration: Duration(milliseconds: 75), curve: Curves.ease);
+                },
+              );
+            },
+            min: 1,
+            max: maximumval,
           ),
         ],
       ),

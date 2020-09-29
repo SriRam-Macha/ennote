@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:official_Ennote/constants.dart';
 
-import 'Listpage.dart';
 import 'Listupvote.dart';
 
 class Semisters extends StatefulWidget {
@@ -22,44 +23,48 @@ class _SemistersState extends State<Semisters> {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: ThemeData.dark(),
-      child: Scaffold(
-        backgroundColor: Color(0xff3B4254),
-        body: SafeArea(
-            child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 18,
-                    mainAxisSpacing: 18),
-                itemCount: semister.length,
-                padding: EdgeInsets.all(16.0),
-                itemBuilder: (context, index) {
-                  return Card(
-                      color: Color(0xff545D6E),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18)),
-                      elevation: 15,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  ListSort(semister[index].semPath),
+    return ThemeSwitchingArea(child: Builder(
+      builder: (context) {
+        return Scaffold(
+          appBar: AppBar(backgroundColor: Theme.of(context).appBarTheme.color,),
+          body: SafeArea(
+              child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 18,
+                      mainAxisSpacing: 18),
+                  itemCount: semister.length,
+                  padding: EdgeInsets.all(16.0),
+                  itemBuilder: (context, index) {
+                    return Card(
+                        color: Theme.of(context).accentColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18)),
+                        elevation: 15,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ListSort(semister[index].semPath),
+                              ),
+                            );
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Container(
+                              child: Center(
+                                child: Text(semister[index].semister,
+                                    style: TextStyle(color: Colors.black)),
+                              ),
                             ),
-                          );
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: Container(
-                            child: Text(semister[index].semister),
                           ),
-                        ),
-                      ));
-                })),
-      ),
-    );
+                        ));
+                  })),
+        );
+      },
+    ));
   }
 }
 

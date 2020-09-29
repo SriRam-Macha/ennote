@@ -46,7 +46,7 @@ class _AddDocumentState extends State<AddDocument> {
             if (_formKey.currentState.validate()) {
               _formKey.currentState.save();
               StorageReference reference =
-                  FirebaseStorage.instance.ref().child(_doc_name);
+                  FirebaseStorage.instance.ref().child(widget.doc_path).child(_doc_name);
               StorageUploadTask uploadTask =
                   reference.putData(widget.document.readAsBytesSync());
               uploadTask.events.listen((event) {
@@ -78,7 +78,7 @@ class _AddDocumentState extends State<AddDocument> {
 
               if (_url.isNotEmpty) {
                 DatabaseReference databaseReference =
-                    FirebaseDatabase.instance.reference().child("Moderater"); 
+                    FirebaseDatabase.instance.reference().child("Moderater");
 
                 databaseReference.push().set({
                   'name': _doc_name,
@@ -129,6 +129,11 @@ class _AddDocumentState extends State<AddDocument> {
               decoration: InputDecoration(labelText: "Document Name"),
             ),
             TextFormField(
+              onSaved: (newValue) {
+                if (newValue.trim() != '') {
+                  _uploder_name = newValue;
+                }
+              },
               validator: (value) {
                 if (value.length < 3 && value.isNotEmpty) {
                   return 'Should be empty or more than 3 charecters';
@@ -146,11 +151,11 @@ class _AddDocumentState extends State<AddDocument> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(right: 8.0),
-                          child: Text(val.toString() + '%'),
+                          child: Text(val.roundToDouble().toString() + '%'),
                         ),
                         Expanded(
                           child: LinearProgressIndicator(
-                            value: val.roundToDouble(), 
+                            value: val.roundToDouble()/100,
                           ),
                         ),
                       ],
